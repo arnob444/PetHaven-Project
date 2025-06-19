@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" autocomplete="on">
+        <fieldset>
+            <legend>Log in</legend>
+            <label for="un">Username</label>
+            <input type="text" name="un" id="un">
+            <br><br>
+            <label for="pass">Password</label>
+            <input type="password" name="pass" id="pass">
+            <br><br>
+            <input type="submit" value="Log in">
+        </fieldset>
+    </form>
+
+    <br><br>
+
+    <form action="">
+        <fieldset>
+            <legend>Registration</legend>
+            
+            <label for="fname">First Name</label>
+            <input type="text" name="fname" id="fname" autofocus>
+            
+            <br><br>
+
+            <label for="lname">Last Name</label>
+            <input type="text" name="lname" id="lname">
+
+            <br><br>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+
+            <br><br>
+
+            <label for="dob">Date of Birth</label>
+            <input type="date" name="dob" id="dob">
+
+            <br><br>
+
+            <label for="gender">Gender</label>
+            <input type="radio" name="gender" id="genderM" value="M">
+            <label for="genderM">Male</label>
+            <input type="radio" name="gender" id="genderF" value="F">
+            <label for="genderF">Female</label>
+
+            <br><br>
+
+            <label for="pl">Programming Language</label>
+            <input type="checkbox" name="pl" id="plC" value="C">
+            <label for="plC">C</label>
+            <input type="checkbox" name="pl" id="plC#" value="C#">
+            <label for="plC#">C#</label>
+            <input type="checkbox" name="pl" id="plJava" value="Java">
+            <label for="plJava">Java</label>
+            <input type="checkbox" name="pl" id="plPython" value="Python">
+            <label for="plPython">Python</label>
+            <input type="checkbox" name="pl" id="plPHP" value="PHP">
+            <label for="plPHP">PHP</label>
+
+            <br><br>
+
+            <label for="district">District</label>
+            <select name="district" id="district">
+                <option value="Dhaka">Dhaka</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Chittagong" selected>Chittagong</option>
+                <option value="Sylhet">Sylhet</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Barishal">Barishal</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Mymensigh">Mymensigh</option>
+            </select>
+
+            <br><br>
+
+            <label for="cc">Country Code</label>
+            <input type="text" name="cc" id="cc" placeholder="BAN" pattern="[A-Z]{3}"> 
+
+            <br><br>
+
+            <label for="fc">Favorite Color</label>
+            <input type="color" name="fc" id="fc">
+
+            <br><br>
+
+            <input type="submit" value="Registration">
+        </fieldset>
+    </form>
+</body>
+</html>
