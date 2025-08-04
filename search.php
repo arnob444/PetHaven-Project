@@ -59,11 +59,9 @@ $result = mysqli_stmt_get_result($stmt);
         <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f5f2f0] px-10 py-3">
           <div class="flex items-center gap-4 text-[#181511]">
             <div class="size-4">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor"></path>
-              </svg>
+              <img src="assets/images/icons/logo.png" alt="PetHaven Logo" class="w-5 h-4" />
             </div>
-            <h2 class="text-[#181511] text-lg font-bold leading-tight tracking-[-0.015em]">PetHaven</h2>
+            <h2 class="text-[#181511] text-lg font-bold leading-tight tracking-[-0.015em]"><a href="index.php">PetHaven</a></h2>
           </div>
           <div class="flex flex-1 justify-end gap-8">
             <div class="flex items-center gap-9">
@@ -175,23 +173,7 @@ $result = mysqli_stmt_get_result($stmt);
             </div>
           </div>
         </div>
-        <footer class="bg-[#f5f2f0] px-10 py-6 mt-auto">
-          <div class="flex flex-wrap justify-between gap-6">
-            <div>
-              <h4 class="text-[#181511] text-sm font-bold leading-normal mb-2">Connect with Us</h4>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal">Email: <a href="mailto:pethaven@gmail.com" class="underline">pethaven@gmail.com</a></p>
-            </div>
-            <div>
-              <h4 class="text-[#181511] text-sm font-bold leading-normal mb-2">Quick Links</h4>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal"><a href="index.php" class="underline">Home</a></p>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal"><a href="search.php?listing_type=adoption" class="underline">Adoption</a></p>
-            </div>
-            <div>
-              <h4 class="text-[#181511] text-sm font-bold leading-normal mb-2">Follow Us</h4>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal"><a href="#" class="underline">Instagram</a></p>
-            </div>
-          </div>
-        </footer>
+        <?php include 'includes/footer.php'; ?>
       </div>
     </div>
 </body>
