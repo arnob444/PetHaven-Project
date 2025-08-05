@@ -25,6 +25,13 @@ if (isset($_SESSION['user_id'])) {
     $app_result = mysqli_stmt_get_result($stmt);
     $has_applied = mysqli_num_rows($app_result) > 0;
 }
+
+// Fetch vaccination records
+$records_query = "SELECT * FROM medical_records WHERE pet_id = ? ORDER BY created_at DESC";
+$stmt = mysqli_prepare($conn, $records_query);
+mysqli_stmt_bind_param($stmt, "i", $pet_id);
+mysqli_stmt_execute($stmt);
+$records_result = mysqli_stmt_get_result($stmt);
 ?>
 
 <!DOCTYPE html>
@@ -57,11 +64,9 @@ if (isset($_SESSION['user_id'])) {
         <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f5f2f0] px-10 py-3">
           <div class="flex items-center gap-4 text-[#181511]">
             <div class="size-4">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor"></path>
-              </svg>
+              <img src="../assets/images/icons/logo.png" alt="PetHaven Logo" class="w-5 h-4" />
             </div>
-            <h2 class="text-[#181511] text-lg font-bold leading-tight tracking-[-0.015em]">PetHaven</h2>
+            <h2 class="text-[#181511] text-lg font-bold leading-tight tracking-[-0.015em]"><a href="../index.php">PetHaven</a></h2>
           </div>
           <div class="flex flex-1 justify-end gap-8">
             <div class="flex items-center gap-9">
@@ -108,7 +113,70 @@ if (isset($_SESSION['user_id'])) {
                 <p class="text-[#181511] text-base font-medium leading-normal"><strong>Posted by:</strong> <?php echo htmlspecialchars($pet['username']); ?></p>
                 <p class="text-[#181511] text-base font-medium leading-normal"><strong>Posted on:</strong> <?php echo htmlspecialchars(date('Y-m-d', strtotime($pet['created_at']))); ?></p>
               </div>
+              <!-- Vaccination Records Section -->
+              <div class="flex flex-col gap-4">
+                <h3 class="text-[#181511] text-lg font-bold leading-tight">Vaccination Records</h3>
+                <?php if (mysqli_num_rows($records_result) > 0): ?>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                    <?php while ($record = mysqli_fetch_assoc($records_result)): ?>
+                      <div class="flex flex-col gap-2 rounded-xl border border-[#e4e1dd] bg-white p-4">
+                        <p class="text-[#181511] text-base font-medium leading-normal"><strong>Vaccine:</strong> <?php echo htmlspecialchars($record['vaccine_name']); ?></p>
+                        <p class="text-[#8a7760] text-sm font-normal leading-normal"><strong>Applied Date:</strong> <?php echo htmlspecialchars($record['vaccine_date']); ?></p>
+                      </div>
+                    <?php endwhile; ?>
+                  </div>
+                <?php else: ?>
+                  <p class="text-[#8a7760] text-sm font-normal leading-normal">No vaccination records available for this pet.</p>
+                <?php endif; ?>
+                <!-- <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $pet['user_id']): ?>
+                  <a href="../medical/add_medical.php?pet_id=<?php echo $pet['id']; ?>" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f39224] text-[#181511] text-sm font-bold leading-normal tracking-[0.015em]">
+                    <span class="truncate">Add Vaccination Record</span>
+                  </a>
+                <?php endif; ?> -->
+              </div>
               <div class="flex flex-wrap gap-3">
+                <!-- Terms & Conditions Button -->
+                <button onclick="toggleTerms()" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f5f2f0] text-[#181511] text-sm font-bold leading-normal tracking-[0.015em]">
+                  <span class="truncate">Terms & Conditions</span>
+                </button>
+                <!-- Terms & Conditions Modal -->
+                <div id="termsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                  <div class="bg-white p-6 rounded-xl shadow-lg w-[90%] max-w-[600px] max-h-[90vh] overflow-y-auto">
+                    <h3 class="text-[#181511] text-lg font-bold leading-tight mb-4">নির্দেশনাবলী</h3>
+                    <p class="text-[#181511] text-sm leading-relaxed whitespace-pre-line">
+                লেনদেনকালে কিভাবে নিরাপদ থাকবেন তার কিছু নির্দেশনাবলী:
+                সকল প্রকার লেনদেন নিজ এলাকায় করুন। বিক্রেতার সাথে সরাসরি সাক্ষাত করুন, প্রোডাক্টটি ভালোভাবে যাচাই করে নিন এবং পুরোপুরি সন্তুষ্ট হলে তারপর দাম পরিশোধ করুন।
+                প্রোডাক্ট ও অর্থ দুটোই একই সময় লেনদেন করুন।
+
+                ক্রেতাসাধারণের জন্য নির্দেশনাবলী:
+                প্রোডাক্ট বুঝে পাওয়ার পূর্বে কোনো প্রকার আর্থিক লেনদেন করবেন না। যদি করে থাকেন নিজের সহজাত বিচার বুদ্ধি ব্যবহার করে বিক্রেতার সাথে কথা বলুন।
+                আপনার আর্থিক তথ্য প্রকাশ করা থেকে বিরত থাকুন।
+
+                বিক্রেতাসাধারণের জন্য নির্দেশনাবলী:
+                অর্থ বুঝে পাওয়ার পূর্বে কোনো প্রোডাক্ট পাঠাবেন না। নিজের সহজাত বিচার বুদ্ধি ব্যবহার করে ক্রেতার সাথে কথা বলুন।
+
+                * ক্রেতা ও বিক্রেতার মধ্যে সকল প্রকার লেনদেন ক্রেতা ও বিক্রেতা নিজ নিজ দায়িত্বে করবেন। আজকের ডিল কর্তৃপক্ষ লেনদেন সংক্রান্ত কোনো দায়িত্ব নিতে বাধ্য নন।
+                
+                
+                General Instructions:
+                  Conduct all transactions in your local area. Meet the seller in person, thoroughly inspect the product, and only pay once you are completely satisfied.
+                  Exchange the product and money at the same time.
+
+                  For Buyers:
+                  Do not make any payment before receiving and inspecting the product. Use your best judgment when communicating with the seller.
+                  Refrain from sharing your financial information.
+
+                  For Sellers:
+                  Do not ship any product before you have received payment. Use your best judgment when communicating with the buyer.
+                  
+                  Disclaimer: All transactions between buyers and sellers are the sole responsibility of the individuals involved. Ajker Deal is not obligated to take any responsibility for transaction-related issues.
+                    </p>
+                    <button onclick="toggleTerms()" class="mt-6 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f39224] text-[#181511] text-sm font-bold leading-normal tracking-[0.015em] w-full">
+                      <span class="truncate">Close</span>
+                    </button>
+                  </div>
+                </div>
+
                 <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != $pet['user_id']): ?>
                   <?php if ($pet['listing_type'] == 'adoption'): ?>
                     <?php if (!$has_applied): ?>
@@ -139,23 +207,7 @@ if (isset($_SESSION['user_id'])) {
             </div>
           </div>
         </div>
-        <footer class="bg-[#f5f2f0] px-10 py-6 mt-auto">
-          <div class="flex flex-wrap justify-between gap-6">
-            <div>
-              <h4 class="text-[#181511] text-sm font-bold leading-normal mb-2">Connect with Us</h4>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal">Email: <a href="mailto:pethaven@gmail.com" class="underline">pethaven@gmail.com</a></p>
-            </div>
-            <div>
-              <h4 class="text-[#181511] text-sm font-bold leading-normal mb-2">Quick Links</h4>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal"><a href="../index.php" class="underline">Home</a></p>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal"><a href="../search.php?listing_type=adoption" class="underline">Adoption</a></p>
-            </div>
-            <div>
-              <h4 class="text-[#181511] text-sm font-bold leading-normal mb-2">Follow Us</h4>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal"><a href="#" class="underline">Instagram</a></p>
-            </div>
-          </div>
-        </footer>
+        <?php include '../includes/footer.php'; ?>
       </div>
 
       <!-- Seller Details Card -->
@@ -173,5 +225,11 @@ if (isset($_SESSION['user_id'])) {
       </div>
     </div>
 </body>
+<script>
+  function toggleTerms() {
+    const modal = document.getElementById('termsModal');
+    modal.classList.toggle('hidden');
+  }
+</script>
 
 </html>
