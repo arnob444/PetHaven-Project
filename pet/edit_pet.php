@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor"></path>
               </svg>
             </div>
-            <h2 class="text-[#181511] text-lg font-bold leading-tight tracking-[-0.015em]">PetHaven</h2>
+            <h2 class="text-[#181511] text-lg font-bold leading-tight tracking-[-0.015em]"><a href="index.php">PetHaven</a></h2>
           </div>
           <div class="flex flex-1 justify-end gap-8">
             <div class="flex items-center gap-9">
@@ -221,23 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
           </div>
         </div>
-        <footer class="bg-[#f5f2f0] px-10 py-6 mt-auto">
-          <div class="flex flex-wrap justify-between gap-6">
-            <div>
-              <h4 class="text-[#181511] text-sm font-bold leading-normal mb-2">Connect with Us</h4>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal">Email: <a href="mailto:pethaven@gmail.com" class="underline">pethaven@gmail.com</a></p>
-            </div>
-            <div>
-              <h4 class="text-[#181511] text-sm font-bold leading-normal mb-2">Quick Links</h4>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal"><a href="../index.php" class="underline">Home</a></p>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal"><a href="../search.php?listing_type=adoption" class="underline">Adoption</a></p>
-            </div>
-            <div>
-              <h4 class="text-[#181511] text-sm font-bold leading-normal mb-2">Follow Us</h4>
-              <p class="text-[#8a7760] text-sm font-normal leading-normal"><a href="#" class="underline">Instagram</a></p>
-            </div>
-          </div>
-        </footer>
+        <?php include '../includes/footer.php'; ?>
       </div>
     </div>
 
