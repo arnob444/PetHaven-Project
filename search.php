@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/config.php';
+  include 'includes/config.php';
 
 $where = "WHERE 1=1";
 $params = [];

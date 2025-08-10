@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/config.php';
+  include 'includes/config.php';
 ?>
 
 <!DOCTYPE html>
@@ -180,12 +180,12 @@ require_once 'includes/config.php';
           Our Sponsors
         </div>
         <div class="marquee whitespace-nowrap text-white font-semibold text-sm sm:text-base">
-          <span class="mx-6">🌟 Partner: ReHome</span>
-          <span class="mx-6">🤝 Sponsor: TakeCare</span>
-          <span class="mx-6">🚀 Partner: Rescue Pet</span>
-          <span class="mx-6">📡 Sponsor: Good Food</span>
-          <span class="mx-6">🛠 Partner: SoftDev</span>
-          <span class="mx-6">💡 Sponsor: Ajker Deal</span>
+          <span class="mx-6">Partner: ReHome</span>
+          <span class="mx-6">Sponsor: TakeCare</span>
+          <span class="mx-6">Partner: Rescue Pet</span>
+          <span class="mx-6">Sponsor: Good Food</span>
+          <span class="mx-6">Partner: SoftDev</span>
+          <span class="mx-6">Sponsor: Ajker Deal</span>
         </div>
       </div>
 
